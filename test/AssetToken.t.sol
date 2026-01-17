@@ -27,10 +27,8 @@ contract AssetTokenTest is Test {
         implementation = new AssetToken();
 
         // 2. Encode initialize call
-        bytes memory initData = abi.encodeCall(
-            AssetToken.initialize,
-            ("Xaults Asset 1", "XLTA1", MAX_SUPPLY, admin, admin)
-        );
+        bytes memory initData =
+            abi.encodeCall(AssetToken.initialize, ("Xaults Asset 1", "XLTA1", MAX_SUPPLY, admin, admin));
 
         // 3. Deploy ERC1967Proxy pointing to V1 with init calldata
         proxy = new ERC1967Proxy(address(implementation), initData);

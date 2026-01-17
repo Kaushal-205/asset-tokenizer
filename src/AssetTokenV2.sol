@@ -41,11 +41,7 @@ contract AssetTokenV2 is AssetToken, PausableUpgradeable {
      * @param to The recipient address.
      * @param value The amount being transferred.
      */
-    function _update(
-        address from,
-        address to,
-        uint256 value
-    ) internal virtual override whenNotPaused {
+    function _update(address from, address to, uint256 value) internal virtual override whenNotPaused {
         super._update(from, to, value);
     }
 }

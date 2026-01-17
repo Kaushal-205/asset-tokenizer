@@ -20,8 +20,6 @@ contract DeployAssetToken is Script {
 
         console.log("Deployer address:", deployer);
 
-        
-
         vm.startBroadcast(deployerPrivateKey);
 
         // 1. Deploy V1 implementation
@@ -29,16 +27,11 @@ contract DeployAssetToken is Script {
         console.log("V1 Implementation deployed at:", address(implementation));
 
         // 2. Encode initialize calldata
-        bytes memory initData = abi.encodeCall(
-            AssetToken.initialize,
-            ("Xaults Asset 1", "XLTA1", MAX_SUPPLY, deployer, deployer)
-        );
+        bytes memory initData =
+            abi.encodeCall(AssetToken.initialize, ("Xaults Asset 1", "XLTA1", MAX_SUPPLY, deployer, deployer));
 
         // 3. Deploy ERC1967Proxy pointing to V1
-        ERC1967Proxy proxy = new ERC1967Proxy(
-            address(implementation),
-            initData
-        );
+        ERC1967Proxy proxy = new ERC1967Proxy(address(implementation), initData);
         console.log("Proxy deployed at:", address(proxy));
 
         // 4. Verify initialization
@@ -66,10 +59,7 @@ contract UpgradeToV2 is Script {
 
         // 1. Deploy V2 implementation
         AssetTokenV2 v2Implementation = new AssetTokenV2();
-        console.log(
-            "V2 Implementation deployed at:",
-            address(v2Implementation)
-        );
+        console.log("V2 Implementation deployed at:", address(v2Implementation));
 
         // 2. Encode reinitializer calldata
         bytes memory reinitData = abi.encodeCall(AssetTokenV2.initializeV2, ());
